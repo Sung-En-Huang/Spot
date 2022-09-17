@@ -44,44 +44,44 @@ function Location({
     index,
 }: LocationProps) {
     return (
-        <Box
-            sx={{
-                display: "flex",
-                justifyContent: "space-between",
-            }}
-        >
-            <Typography>{location}</Typography>
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "15px",
-                    width: "50%",
-                }}
-            >
-                <Typography>0 km</Typography>
-                <Slider
-                    size="small"
-                    marks={[
-                        {
-                            value: radius,
-                            label: `${radius / 10} km`,
-                        },
-                    ]}
-                    onChange={(
-                        e: Event,
-                        value: number | number[],
-                        id: number
-                    ) => {
-                        handleChange(e, value, index);
+        <Grid container spacing={2}>
+            <Grid item xs={6}>
+                <Typography>{location}</Typography>
+            </Grid>
+            <Grid item xs={6}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "15px",
+                        width: "100%",
+                        flexGrow: 1,
                     }}
-                    value={radius}
-                    sx={{ width: "70%" }}
-                />
-                <Typography>10+ km</Typography>
-                <Button onClick={deleteLocation}>Delete</Button>
-            </Box>
-        </Box>
+                >
+                    <Typography>0 km</Typography>
+                    <Slider
+                        size="small"
+                        marks={[
+                            {
+                                value: radius,
+                                label: `${radius / 10} km`,
+                            },
+                        ]}
+                        onChange={(
+                            e: Event,
+                            value: number | number[],
+                            id: number
+                        ) => {
+                            handleChange(e, value, index);
+                        }}
+                        value={radius}
+                        sx={{ width: "50%" }}
+                    />
+                    <Typography>10+ km</Typography>
+                    <Button onClick={deleteLocation}>Delete</Button>
+                </Box>
+            </Grid>
+        </Grid>
     );
 }
 
@@ -376,63 +376,72 @@ function EditProfile() {
                                     />
                                 );
                             })}
-                            <Box
+                            {/* <Box
                                 sx={{
                                     display: "flex",
                                     justifyContent: "space-between",
                                     gap: "20px",
                                 }}
-                            >
-                                <TextField
-                                    placeholder="Address "
-                                    onChange={(e) => {
-                                        setNewLocation({
-                                            ...newLocation,
-                                            address: e.target.value,
-                                        });
-                                    }}
-                                    value={newLocation.address}
-                                    sx={{ flexGrow: 1 }}
-                                />
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        gap: "15px",
-                                        width: "50%",
-                                    }}
-                                >
-                                    <Typography>0 km</Typography>
-                                    <Slider
-                                        size="small"
-                                        marks={[
-                                            {
-                                                value: newLocation.radius,
-                                                label: `${
-                                                    newLocation.radius / 10 // scale down to between 0-10km
-                                                } km`,
-                                            },
-                                        ]}
-                                        onChange={(
-                                            e: Event,
-                                            value: number | number[]
-                                        ) => {
+                            > */}
+                            <Grid container spacing={2}>
+                                <Grid item xs={6}>
+                                    <TextField
+                                        placeholder="Address "
+                                        onChange={(e) => {
                                             setNewLocation({
                                                 ...newLocation,
-                                                radius: !Array.isArray(value)
-                                                    ? value
-                                                    : 0,
+                                                address: e.target.value,
                                             });
                                         }}
-                                        value={newLocation.radius}
-                                        sx={{ width: "70%" }}
+                                        value={newLocation.address}
+                                        sx={{ width: "80%" }}
                                     />
-                                    <Typography>10+ km</Typography>
-                                    <Button onClick={handleAddLocation}>
-                                        Add
-                                    </Button>
-                                </Box>
-                            </Box>
+                                </Grid>
+                                <Grid item xs={6}>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            justifyContent: "space-between",
+                                            alignItems: "center",
+                                            gap: "15px",
+                                            width: "100%",
+                                        }}
+                                    >
+                                        <Typography>0 km</Typography>
+                                        <Slider
+                                            size="small"
+                                            marks={[
+                                                {
+                                                    value: newLocation.radius,
+                                                    label: `${
+                                                        newLocation.radius / 10 // scale down to between 0-10km
+                                                    } km`,
+                                                },
+                                            ]}
+                                            onChange={(
+                                                e: Event,
+                                                value: number | number[]
+                                            ) => {
+                                                setNewLocation({
+                                                    ...newLocation,
+                                                    radius: !Array.isArray(
+                                                        value
+                                                    )
+                                                        ? value
+                                                        : 0,
+                                                });
+                                            }}
+                                            value={newLocation.radius}
+                                            sx={{ width: "50%" }}
+                                        />
+                                        <Typography>10+ km</Typography>
+                                        <Button onClick={handleAddLocation}>
+                                            Add
+                                        </Button>
+                                    </Box>
+                                </Grid>
+                            </Grid>
+                            {/* </Box> */}
                         </Grid>
                         <Grid item xs={5}>
                             <Heading text="Amenities" />
