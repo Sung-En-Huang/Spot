@@ -8,12 +8,10 @@ import {
     Avatar,
     Typography,
     Slider,
-    Chip,
     Checkbox,
     TextField,
 } from "@mui/material";
 import {
-    Bed,
     Bathroom,
     BedroomParent,
     WifiOutlined,
@@ -98,6 +96,12 @@ interface Amenity {
     selected: boolean;
 }
 
+interface Room {
+    icon: React.ReactNode;
+    name: string;
+    num: number;
+}
+
 interface ProfileSettings {
     price: {
         lower: number;
@@ -109,11 +113,7 @@ interface ProfileSettings {
     };
     locations: Location[];
     amenities: Amenity[];
-    rooms: {
-        bedrooms: number;
-        bathrooms: number;
-        beds: number;
-    };
+    rooms: Room[];
     walkScore: number;
 }
 
@@ -141,11 +141,18 @@ function EditProfile() {
             { icon: <KitchenOutlined />, text: "Kitchen", selected: true },
             { icon: <LocalParkingOutlined />, text: "Parking", selected: true },
         ],
-        rooms: {
-            bedrooms: 5,
-            bathrooms: 2,
-            beds: 5,
-        },
+        rooms: [
+            {
+                icon: <BedroomParent />,
+                name: "Bedroom",
+                num: 5,
+            },
+            {
+                icon: <Bathroom />,
+                name: "Bathroom",
+                num: 2,
+            },
+        ],
         walkScore: 80,
     });
 
@@ -216,6 +223,20 @@ function EditProfile() {
             }
         });
         setSettings({ ...settings, amenities: newAmenities });
+    };
+
+    const handleRoomSlider = (
+        event: Event,
+        newValue: number | number[],
+        name: string
+    ) => {
+        let newRooms = settings.rooms;
+        newRooms.map((room) => {
+            if (room.name === name) {
+                room.num = !Array.isArray(newValue) ? newValue : 0;
+            }
+        });
+        setSettings({ ...settings, rooms: newRooms });
     };
 
     return (
@@ -453,18 +474,39 @@ function EditProfile() {
                                     gap: "10px",
                                 }}
                             >
-                                <Chip
-                                    icon={<BedroomParent />}
-                                    label={`${settings.rooms.bedrooms} Bedrooms`}
-                                />
-                                <Chip
-                                    icon={<Bathroom />}
-                                    label={`${settings.rooms.bathrooms} Bathrooms`}
-                                />
-                                <Chip
-                                    icon={<Bed />}
-                                    label={`${settings.rooms.beds} Beds`}
-                                />
+                                {settings.rooms.map((room) => (
+                                    <Box
+                                        sx={{
+                                            width: "100%",
+                                        }}
+                                    >
+                                        <Box
+                                            sx={{ display: "flex", gap: "5px" }}
+                                        >
+                                            {room.icon}
+                                            <Typography>{room.name}</Typography>
+                                        </Box>
+                                        <Slider
+                                            size="small"
+                                            valueLabelDisplay="auto"
+                                            step={1}
+                                            marks
+                                            min={0}
+                                            max={10}
+                                            value={room.num}
+                                            onChange={(
+                                                e: Event,
+                                                newValue: number | number[]
+                                            ) =>
+                                                handleRoomSlider(
+                                                    e,
+                                                    newValue,
+                                                    room.name
+                                                )
+                                            }
+                                        />
+                                    </Box>
+                                ))}
                             </Box>
                         </Grid>
                         <Grid item xs={3}>
