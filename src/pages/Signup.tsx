@@ -2,12 +2,35 @@ import { useState } from "react";
 import { Typography, Button, TextField, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import house from "../assets/house.jpeg";
+import { useNavigate } from "react-router-dom";
+import { Auth } from "aws-amplify";
 
 function Signup() {
+
+    const navigate = useNavigate();
+    const handleSignup = async () => {
+        const username = name;
+
+        try {
+            const user = await Auth.signUp({
+                username, password, attributes: {
+                    email
+                },
+                autoSignIn: { enabled: true, }
+            })
+            navigate("/");
+            console.log(user)
+        } catch (error) { 
+            console.log('error signing up:')
+        }
+        
+    }
+
+
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    // const [confirmPassword, setConfirmPassword] = useState("");
     return (
         <Grid
             container
@@ -70,7 +93,7 @@ function Signup() {
                             sx={{ width: "100%" }}
                         />
                     </Grid>
-                    <Grid item xs={12}>
+                    {/* <Grid item xs={12}>
                         <TextField
                             required
                             type="password"
@@ -79,11 +102,12 @@ function Signup() {
                             label="Confirm Password"
                             sx={{ width: "100%" }}
                         />
-                    </Grid>
+                    </Grid> */}
                     <Grid item xs={12}>
                         <Button
                             variant="outlined"
                             sx={{ width: "100%", height: "50px" }}
+                            onClick={handleSignup}
                         >
                             Submit
                         </Button>

@@ -7,8 +7,34 @@ import Match from "./pages/Match";
 import Tenant from "./pages/Tenant";
 import Landlord from "./pages/Landlord";
 import ProtectedRoutes from "./ProtectedRoutes";
+import { useState, useEffect } from "react";
+import Amplify, { Auth } from 'aws-amplify';
+import awsconfig from './aws-exports';
+
+
+Amplify.configure(awsconfig);
 
 function App() {
+
+    //To check if the user is signedin
+    // const [loggedIn, setLoggedIn] = useState(false);
+
+    // useEffect(
+    //     () => { 
+    //     AssessLoggedInState()
+    // }, [])
+
+    // const AssessLoggedInState = () => { 
+    //     Auth.currentAuthenticatedUser()
+    //         .then(() => { 
+    //         setLoggedIn(true)
+    //         })
+    //         .catch(() => { 
+    //             setLoggedIn(false)
+    //         })
+    // }
+
+
     return (
         <Router>
             <Routes>
