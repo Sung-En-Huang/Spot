@@ -9,6 +9,7 @@ import {
     Typography,
     Slider,
     Chip,
+    TextField,
 } from "@mui/material";
 import {
     Bed,
@@ -83,6 +84,11 @@ function Location({
     );
 }
 
+interface location {
+    address: string;
+    radius: number;
+}
+
 interface ProfileSettings {
     price: {
         lower: number;
@@ -92,10 +98,7 @@ interface ProfileSettings {
         lower: number;
         higher: number;
     };
-    locations: {
-        address: string;
-        radius: number;
-    }[];
+    locations: location[];
     amenities: {
         wifi: boolean;
         kitchen: boolean;
@@ -142,6 +145,11 @@ function EditProfile() {
         walkScore: 80,
     });
 
+    const [newLocation, setNewLocation] = useState<location>({
+        address: "",
+        radius: 0,
+    });
+
     const handleChange = (event: Event, newValue: number | number[]) => {
         if (event.target !== null) {
             const target = event.target as HTMLInputElement;
@@ -179,6 +187,15 @@ function EditProfile() {
             newLocations.splice(id, 1);
             setSettings({ ...settings, locations: newLocations });
         }
+    };
+
+    const handleAddLocation = () => {
+        let newLocations = settings.locations;
+        newLocations.push({
+            address: newLocation.address,
+            radius: newLocation.radius,
+        });
+        setSettings({ ...settings, locations: newLocations });
     };
 
     return (
@@ -314,6 +331,60 @@ function EditProfile() {
                                     />
                                 );
                             })}
+                            <Box
+                                sx={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                }}
+                            >
+                                <TextField
+                                    onChange={(e) => {
+                                        setNewLocation({
+                                            ...newLocation,
+                                            address: e.target.value,
+                                        });
+                                    }}
+                                    value={newLocation.address}
+                                />
+                                <Box
+                                    sx={{
+                                        display: "flex",
+                                        justifyContent: "space-between",
+                                        gap: "15px",
+                                        width: "50%",
+                                    }}
+                                >
+                                    <Typography>0 km</Typography>
+                                    <Slider
+                                        size="small"
+                                        marks={[
+                                            {
+                                                value: newLocation.radius,
+                                                label: `${
+                                                    newLocation.radius / 10
+                                                } km`,
+                                            },
+                                        ]}
+                                        onChange={(
+                                            e: Event,
+                                            value: number | number[]
+                                        ) => {
+                                            setNewLocation({
+                                                ...newLocation,
+                                                radius: !Array.isArray(value)
+                                                    ? value
+                                                    : 0,
+                                            });
+                                        }}
+                                        value={newLocation.radius}
+                                        sx={{ width: "70%" }}
+                                    />
+                                    <Typography>10+ km</Typography>
+                                    <Button onClick={handleAddLocation}>
+                                        Add
+                                    </Button>
+                                </Box>
+                            </Box>
                         </Grid>
                         <Grid item xs={5}>
                             <Heading text="Amenities" />
