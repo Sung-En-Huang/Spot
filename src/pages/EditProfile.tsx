@@ -155,7 +155,7 @@ function EditProfile() {
     });
 
     // handles change for price and duration sliders
-    const handleChange = (event: Event, newValue: number | number[]) => {
+    const handleSliderChange = (event: Event, newValue: number | number[]) => {
         if (event.target !== null) {
             const target = event.target as HTMLInputElement;
             setSettings({
@@ -271,7 +271,7 @@ function EditProfile() {
                                 <Slider
                                     name="price"
                                     size="small"
-                                    onChange={handleChange}
+                                    onChange={handleSliderChange}
                                     marks={[
                                         {
                                             value: settings.price.lower,
@@ -309,7 +309,7 @@ function EditProfile() {
                                 <Slider
                                     name="duration"
                                     size="small"
-                                    onChange={handleChange}
+                                    onChange={handleSliderChange}
                                     marks={[
                                         {
                                             value: settings.duration.lower,
