@@ -33,12 +33,19 @@ import SideBar from "../components/Sidebar";
 import Listing from "../components/Listing";
 import TabPanel from "../components/TabPanel";
 import Amenities from "../components/Amenities";
+import Heading from "../components/Heading";
 import house from "../assets/house.jpeg";
 import Amplify, { Auth } from 'aws-amplify';
 import awsconfig from '../aws-exports';
 
 
 Amplify.configure(awsconfig);
+
+interface Amenity {
+    icon: React.ReactNode;
+    text: string;
+    selected: boolean;
+}
 
 interface ProfileSettings {
     price: {
@@ -53,12 +60,7 @@ interface ProfileSettings {
         address: string;
         radius: number;
     }[];
-    amenities: {
-        wifi: boolean;
-        kitchen: boolean;
-        ac: boolean;
-        parking: boolean;
-    };
+    amenities: Amenity[];
     rooms: {
         bedrooms: number;
         bathrooms: number;
@@ -72,19 +74,6 @@ function a11yProps(index: number) {
         id: `simple-tab-${index}`,
         "aria-controls": `simple-tabpanel-${index}`,
     };
-}
-
-interface HeadingProps {
-    text: string;
-}
-
-function Heading({ text }: HeadingProps) {
-    return (
-        <>
-            <Typography variant="h6">{text}</Typography>
-            <Divider sx={{ marginY: "10px" }} />
-        </>
-    );
 }
 
 interface LocationProps {
@@ -159,12 +148,12 @@ function Profile() {
                 radius: 4,
             },
         ],
-        amenities: {
-            wifi: true,
-            kitchen: true,
-            ac: true,
-            parking: true,
-        },
+        amenities: [
+            { icon: <WifiOutlined />, text: "Wifi", selected: true },
+            { icon: <AcUnitOutlined />, text: "AC", selected: true },
+            { icon: <KitchenOutlined />, text: "Kitchen", selected: true },
+            { icon: <LocalParkingOutlined />, text: "Parking", selected: true },
+        ],
         rooms: {
             bedrooms: 5,
             bathrooms: 2,
@@ -200,16 +189,25 @@ function Profile() {
                                 Joe Smith
                             </Typography>
                         </Box>
-                        <Link to="edit">
+                        <Box sx={{ display: "flex", gap: "10px" }}>
+                            <Link to="edit">
+                                <Button
+                                    variant="contained"
+                                    sx={{ height: "40px" }}
+                                    startIcon={<Edit />}
+                                >
+                                    Edit Profile
+                                </Button>
+                            </Link>
                             <Button
                                 variant="contained"
                                 sx={{ height: "40px" }}
-                                startIcon={<Edit />}
+                                onClick={handleLogout}
+                                startIcon={<Logout />}
                             >
-                                Edit Profile
+                                Logout
                             </Button>
-                        </Link>
-                        <button onClick={handleLogout}>Logout</button>
+                        </Box>
                     </Box>
                     <Box
                         sx={{
@@ -367,34 +365,15 @@ function Profile() {
                                     spacing={2}
                                     sx={{ paddingX: "20px" }}
                                 >
-                                    <Grid item xs={6}>
-                                        <Amenities
-                                            icon={<WifiOutlined />}
-                                            text="Wi-Fi"
-                                            required={true}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Amenities
-                                            icon={<AcUnitOutlined />}
-                                            text="Air Conditioning"
-                                            required={false}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Amenities
-                                            icon={<KitchenOutlined />}
-                                            text="Kitchen"
-                                            required={true}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Amenities
-                                            icon={<LocalParkingOutlined />}
-                                            text="Parking"
-                                            required={true}
-                                        />
-                                    </Grid>
+                                    {settings.amenities.map((amenity) => (
+                                        <Grid item xs={6}>
+                                            <Amenities
+                                                icon={amenity.icon}
+                                                text={amenity.text}
+                                                required={amenity.selected}
+                                            />
+                                        </Grid>
+                                    ))}
                                 </Grid>
                             </Grid>
                             <Grid item xs={4}>
