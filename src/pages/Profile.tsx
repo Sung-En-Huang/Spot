@@ -33,6 +33,7 @@ import SideBar from "../components/Sidebar";
 import Listing from "../components/Listing";
 import TabPanel from "../components/TabPanel";
 import Amenities from "../components/Amenities";
+import Heading from "../components/Heading";
 import house from "../assets/house.jpeg";
 
 interface ProfileSettings {
@@ -67,19 +68,6 @@ function a11yProps(index: number) {
         id: `simple-tab-${index}`,
         "aria-controls": `simple-tabpanel-${index}`,
     };
-}
-
-interface HeadingProps {
-    text: string;
-}
-
-function Heading({ text }: HeadingProps) {
-    return (
-        <>
-            <Typography variant="h6">{text}</Typography>
-            <Divider sx={{ marginY: "10px" }} />
-        </>
-    );
 }
 
 interface LocationProps {
