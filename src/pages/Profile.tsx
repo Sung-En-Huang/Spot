@@ -36,6 +36,12 @@ import Amenities from "../components/Amenities";
 import Heading from "../components/Heading";
 import house from "../assets/house.jpeg";
 
+interface Amenity {
+    icon: React.ReactNode;
+    text: string;
+    selected: boolean;
+}
+
 interface ProfileSettings {
     price: {
         lower: number;
@@ -49,12 +55,7 @@ interface ProfileSettings {
         address: string;
         radius: number;
     }[];
-    amenities: {
-        wifi: boolean;
-        kitchen: boolean;
-        ac: boolean;
-        parking: boolean;
-    };
+    amenities: Amenity[];
     rooms: {
         bedrooms: number;
         bathrooms: number;
@@ -135,12 +136,12 @@ function Profile() {
                 radius: 4,
             },
         ],
-        amenities: {
-            wifi: true,
-            kitchen: true,
-            ac: true,
-            parking: true,
-        },
+        amenities: [
+            { icon: <WifiOutlined />, text: "Wifi", selected: true },
+            { icon: <AcUnitOutlined />, text: "AC", selected: true },
+            { icon: <KitchenOutlined />, text: "Kitchen", selected: true },
+            { icon: <LocalParkingOutlined />, text: "Parking", selected: true },
+        ],
         rooms: {
             bedrooms: 5,
             bathrooms: 2,
@@ -352,34 +353,15 @@ function Profile() {
                                     spacing={2}
                                     sx={{ paddingX: "20px" }}
                                 >
-                                    <Grid item xs={6}>
-                                        <Amenities
-                                            icon={<WifiOutlined />}
-                                            text="Wi-Fi"
-                                            required={true}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Amenities
-                                            icon={<AcUnitOutlined />}
-                                            text="Air Conditioning"
-                                            required={false}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Amenities
-                                            icon={<KitchenOutlined />}
-                                            text="Kitchen"
-                                            required={true}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Amenities
-                                            icon={<LocalParkingOutlined />}
-                                            text="Parking"
-                                            required={true}
-                                        />
-                                    </Grid>
+                                    {settings.amenities.map((amenity) => (
+                                        <Grid item xs={6}>
+                                            <Amenities
+                                                icon={amenity.icon}
+                                                text={amenity.text}
+                                                required={amenity.selected}
+                                            />
+                                        </Grid>
+                                    ))}
                                 </Grid>
                             </Grid>
                             <Grid item xs={4}>

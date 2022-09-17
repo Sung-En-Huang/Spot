@@ -9,6 +9,7 @@ import {
     Typography,
     Slider,
     Chip,
+    Checkbox,
     TextField,
 } from "@mui/material";
 import {
@@ -20,6 +21,7 @@ import {
     KitchenOutlined,
     LocalParkingOutlined,
     LocationSearching,
+    CheckBox,
 } from "@mui/icons-material";
 
 import { Link } from "react-router-dom";
@@ -35,6 +37,7 @@ interface LocationProps {
     deleteLocation: any;
 }
 
+// represents a location listing in the preference pane
 function Location({
     location,
     radius,
@@ -84,9 +87,15 @@ function Location({
     );
 }
 
-interface location {
+interface Location {
     address: string;
     radius: number;
+}
+
+interface Amenity {
+    icon: React.ReactNode;
+    text: string;
+    selected: boolean;
 }
 
 interface ProfileSettings {
@@ -98,13 +107,8 @@ interface ProfileSettings {
         lower: number;
         higher: number;
     };
-    locations: location[];
-    amenities: {
-        wifi: boolean;
-        kitchen: boolean;
-        ac: boolean;
-        parking: boolean;
-    };
+    locations: Location[];
+    amenities: Amenity[];
     rooms: {
         bedrooms: number;
         bathrooms: number;
@@ -131,12 +135,12 @@ function EditProfile() {
                 radius: 40,
             },
         ],
-        amenities: {
-            wifi: true,
-            kitchen: true,
-            ac: true,
-            parking: true,
-        },
+        amenities: [
+            { icon: <WifiOutlined />, text: "Wifi", selected: true },
+            { icon: <AcUnitOutlined />, text: "AC", selected: true },
+            { icon: <KitchenOutlined />, text: "Kitchen", selected: true },
+            { icon: <LocalParkingOutlined />, text: "Parking", selected: true },
+        ],
         rooms: {
             bedrooms: 5,
             bathrooms: 2,
@@ -145,11 +149,12 @@ function EditProfile() {
         walkScore: 80,
     });
 
-    const [newLocation, setNewLocation] = useState<location>({
+    const [newLocation, setNewLocation] = useState<Location>({
         address: "",
         radius: 0,
     });
 
+    // handles change for price and duration sliders
     const handleChange = (event: Event, newValue: number | number[]) => {
         if (event.target !== null) {
             const target = event.target as HTMLInputElement;
@@ -163,7 +168,8 @@ function EditProfile() {
         }
     };
 
-    const handleLocationChange = (
+    // handles change for location radius sliders
+    const handleLocationRadiusChange = (
         event: Event,
         newValue: number | number[],
         id: number
@@ -172,7 +178,7 @@ function EditProfile() {
             let newLocations = settings.locations;
             // change the nth location with matching id
             newLocations.map((location, index) => {
-                if (index == id && !Array.isArray(newValue)) {
+                if (index === id && !Array.isArray(newValue)) {
                     location.radius = newValue;
                 }
             });
@@ -180,6 +186,7 @@ function EditProfile() {
         }
     };
 
+    // deletes a location from preferences
     const handleDeleteLocation = (event: Event, id: number) => {
         if (event.target !== null) {
             let newLocations = settings.locations;
@@ -189,6 +196,7 @@ function EditProfile() {
         }
     };
 
+    // add new location with a preferred radius to preferences
     const handleAddLocation = () => {
         let newLocations = settings.locations;
         newLocations.push({
@@ -196,6 +204,17 @@ function EditProfile() {
             radius: newLocation.radius,
         });
         setSettings({ ...settings, locations: newLocations });
+    };
+
+    // toggles amenity preference
+    const handleAmenityToggle = (id: number) => {
+        let newAmenities = settings.amenities;
+        newAmenities.map((amenity, index) => {
+            if (index === id) {
+                amenity.selected = !amenity.selected;
+            }
+        });
+        setSettings({ ...settings, amenities: newAmenities });
     };
 
     return (
@@ -325,8 +344,12 @@ function EditProfile() {
                                     <Location
                                         location={location.address}
                                         radius={location.radius}
-                                        deleteLocation={handleDeleteLocation}
-                                        handleChange={handleLocationChange}
+                                        deleteLocation={(e: Event) =>
+                                            handleDeleteLocation(e, index)
+                                        }
+                                        handleChange={
+                                            handleLocationRadiusChange
+                                        }
                                         index={index} // used to identify slider for handle change
                                     />
                                 );
@@ -338,6 +361,7 @@ function EditProfile() {
                                 }}
                             >
                                 <TextField
+                                    placeholder="Address "
                                     onChange={(e) => {
                                         setNewLocation({
                                             ...newLocation,
@@ -393,34 +417,28 @@ function EditProfile() {
                                 spacing={2}
                                 sx={{ paddingX: "20px" }}
                             >
-                                <Grid item xs={6}>
-                                    <Amenities
-                                        icon={<WifiOutlined />}
-                                        text="Wi-Fi"
-                                        required={true}
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Amenities
-                                        icon={<AcUnitOutlined />}
-                                        text="Air Conditioning"
-                                        required={false}
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Amenities
-                                        icon={<KitchenOutlined />}
-                                        text="Kitchen"
-                                        required={true}
-                                    />
-                                </Grid>
-                                <Grid item xs={6}>
-                                    <Amenities
-                                        icon={<LocalParkingOutlined />}
-                                        text="Parking"
-                                        required={true}
-                                    />
-                                </Grid>
+                                {settings.amenities.map((amenity, index) => (
+                                    <Grid item xs={6}>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                            }}
+                                        >
+                                            <Amenities
+                                                icon={amenity.icon}
+                                                text={amenity.text}
+                                                required={amenity.selected}
+                                            />
+                                            <Checkbox
+                                                checked={amenity.selected}
+                                                onChange={() =>
+                                                    handleAmenityToggle(index)
+                                                }
+                                            />
+                                        </Box>
+                                    </Grid>
+                                ))}
                             </Grid>
                         </Grid>
                         <Grid item xs={4}>
