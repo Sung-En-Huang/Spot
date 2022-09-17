@@ -34,6 +34,11 @@ import Listing from "../components/Listing";
 import TabPanel from "../components/TabPanel";
 import Amenities from "../components/Amenities";
 import house from "../assets/house.jpeg";
+import Amplify, { Auth } from 'aws-amplify';
+import awsconfig from '../aws-exports';
+
+
+Amplify.configure(awsconfig);
 
 interface ProfileSettings {
     price: {
@@ -125,9 +130,16 @@ function Location({ location, radius }: LocationProps) {
 
 function Profile() {
     const navigate = useNavigate();
-    const handleLogout = () => {
-        localStorage.setItem("isLoggedIn", "false");
-        navigate("/login");
+    const handleLogout = async () => {
+        try {
+            await Auth.signOut()
+            //setLoggedIn(false)
+            console.log("logged out")
+            localStorage.setItem("isLoggedIn", "false");
+            navigate("/login");
+        } catch (error) { 
+            console.log('error signing out', error)
+        }
     };
     const [tabValue, setTabValue] = useState(0);
     const [settings, setSettings] = useState<ProfileSettings>({
