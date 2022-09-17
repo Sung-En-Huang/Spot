@@ -6,30 +6,30 @@ import { useNavigate } from "react-router-dom";
 import { Auth } from "aws-amplify";
 
 function Signup() {
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const navigate = useNavigate();
     const handleSignup = async () => {
         const username = name;
 
         try {
-            const user = await Auth.signUp({
-                username, password, attributes: {
-                    email
+            const { user } = await Auth.signUp({
+                username,
+                password,
+                attributes: {
+                    email,
                 },
-                autoSignIn: { enabled: true, }
-            })
+                autoSignIn: { enabled: true },
+            });
             navigate("/");
-            console.log(user)
-        } catch (error) { 
-            console.log('error signing up:')
+            console.log(user);
+        } catch (error) {
+            console.log("error signing up:");
         }
-        
-    }
+    };
 
-
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
     // const [confirmPassword, setConfirmPassword] = useState("");
     return (
         <Grid
@@ -114,12 +114,11 @@ function Signup() {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="body1">
-                            Already have an account?{" "}
-                            <span>
-                                <Link to="/">
-                                    <Button variant="text">Log In</Button>
-                                </Link>
-                            </span>
+                            Already have an account? {/* <span> */}
+                            <Link to="/">
+                                <Button variant="text">Log In</Button>
+                            </Link>
+                            {/* </span> */}
                         </Typography>
                     </Grid>
                 </Grid>

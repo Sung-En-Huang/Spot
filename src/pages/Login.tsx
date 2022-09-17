@@ -7,22 +7,20 @@ import { Auth } from "aws-amplify";
 import React, { useState } from "react";
 
 function Login() {
-
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        try { 
-            const user = await Auth.signIn(email, password);
-            localStorage.setItem("isLoggedIn", "true")
+        try {
+            // const user = await Auth.signIn(email, password);
+            localStorage.setItem("isLoggedIn", "true");
             navigate("/");
         } catch (error) {
-            console.log('there was an error logging in', error)
+            console.log("there was an error logging in", error);
         }
     };
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     return (
         <Grid
@@ -58,7 +56,7 @@ function Login() {
                             value={email}
                             placeholder="someone@example.com"
                             sx={{ width: "100%" }}
-                            onChange={ e => setEmail(e.target.value)}
+                            onChange={(e) => setEmail(e.target.value)}
                             // onChange={(e: any) => {handleChange(e)}}
                             // value={email}
                         />
@@ -71,14 +69,14 @@ function Login() {
                             label="Password"
                             value={password}
                             sx={{ width: "100%" }}
-                            onChange={ e => setPassword(e.target.value)}
+                            onChange={(e) => setPassword(e.target.value)}
                             // onChange={(e: any) => {handleChange(e)}}
                             // value={password}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <Button
-                            id='signInButton'
+                            id="signInButton"
                             onClick={handleLogin}
                             variant="outlined"
                             sx={{ width: "100%", height: "50px" }}
@@ -88,12 +86,11 @@ function Login() {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="body1">
-                            Don't have an account?{" "}
-                            <span>
-                                <Link to="/signup">
-                                    <Button variant="text">Sign Up</Button>
-                                </Link>
-                            </span>
+                            Don't have an account? {/* <span> */}
+                            <Link to="/signup">
+                                <Button variant="text">Sign Up</Button>
+                            </Link>
+                            {/* </span> */}
                         </Typography>
                     </Grid>
                 </Grid>
