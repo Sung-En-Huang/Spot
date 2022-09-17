@@ -204,6 +204,7 @@ function EditProfile() {
             radius: newLocation.radius,
         });
         setSettings({ ...settings, locations: newLocations });
+        setNewLocation({ address: "", radius: 0 }); // reset field
     };
 
     // toggles amenity preference
@@ -358,6 +359,7 @@ function EditProfile() {
                                 sx={{
                                     display: "flex",
                                     justifyContent: "space-between",
+                                    gap: "20px",
                                 }}
                             >
                                 <TextField
@@ -369,6 +371,7 @@ function EditProfile() {
                                         });
                                     }}
                                     value={newLocation.address}
+                                    sx={{ flexGrow: 1 }}
                                 />
                                 <Box
                                     sx={{
@@ -385,7 +388,7 @@ function EditProfile() {
                                             {
                                                 value: newLocation.radius,
                                                 label: `${
-                                                    newLocation.radius / 10
+                                                    newLocation.radius / 10 // scale down to between 0-10km
                                                 } km`,
                                             },
                                         ]}
