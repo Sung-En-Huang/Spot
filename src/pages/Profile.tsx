@@ -42,6 +42,12 @@ interface Amenity {
     selected: boolean;
 }
 
+interface Room {
+    icon: React.ReactElement;
+    name: string;
+    num: number;
+}
+
 interface ProfileSettings {
     price: {
         lower: number;
@@ -56,11 +62,7 @@ interface ProfileSettings {
         radius: number;
     }[];
     amenities: Amenity[];
-    rooms: {
-        bedrooms: number;
-        bathrooms: number;
-        beds: number;
-    };
+    rooms: Room[];
     walkScore: number;
 }
 
@@ -142,11 +144,18 @@ function Profile() {
             { icon: <KitchenOutlined />, text: "Kitchen", selected: true },
             { icon: <LocalParkingOutlined />, text: "Parking", selected: true },
         ],
-        rooms: {
-            bedrooms: 5,
-            bathrooms: 2,
-            beds: 5,
-        },
+        rooms: [
+            {
+                icon: <BedroomParent />,
+                name: "Bedroom",
+                num: 5,
+            },
+            {
+                icon: <Bathroom />,
+                name: "Bathroom",
+                num: 2,
+            },
+        ],
         walkScore: 80,
     });
     return (
@@ -373,7 +382,13 @@ function Profile() {
                                         gap: "10px",
                                     }}
                                 >
-                                    <Chip
+                                    {settings.rooms.map((room) => (
+                                        <Chip
+                                            icon={room.icon}
+                                            label={`${room.num} ${room.name}s`}
+                                        />
+                                    ))}
+                                    {/* <Chip
                                         icon={<BedroomParent />}
                                         label={`${settings.rooms.bedrooms} Bedrooms`}
                                     />
@@ -384,7 +399,7 @@ function Profile() {
                                     <Chip
                                         icon={<Bed />}
                                         label={`${settings.rooms.beds} Beds`}
-                                    />
+                                    /> */}
                                 </Box>
                             </Grid>
                             <Grid item xs={3}>
