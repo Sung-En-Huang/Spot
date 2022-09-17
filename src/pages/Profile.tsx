@@ -188,16 +188,25 @@ function Profile() {
                                 Joe Smith
                             </Typography>
                         </Box>
-                        <Link to="edit">
+                        <Box sx={{ display: "flex", gap: "10px" }}>
+                            <Link to="edit">
+                                <Button
+                                    variant="contained"
+                                    sx={{ height: "40px" }}
+                                    startIcon={<Edit />}
+                                >
+                                    Edit Profile
+                                </Button>
+                            </Link>
                             <Button
                                 variant="contained"
                                 sx={{ height: "40px" }}
-                                startIcon={<Edit />}
+                                onClick={handleLogout}
+                                startIcon={<Logout />}
                             >
-                                Edit Profile
+                                Logout
                             </Button>
-                        </Link>
-                        <button onClick={handleLogout}>Logout</button>
+                        </Box>
                     </Box>
                     <Box
                         sx={{
