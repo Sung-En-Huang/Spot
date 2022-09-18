@@ -3,6 +3,7 @@ import { Logout, House, Chat, Person } from "@mui/icons-material";
 import { Link, useNavigate } from "react-router-dom";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "../aws-exports";
+import Spot from "../assets/Spot.png";
 import { UserPreferences } from "../interfaces/ProfileSettings.interface";
 
 Amplify.configure(awsconfig);
@@ -39,6 +40,7 @@ function SideBar({ children }: SideBarProps) {
                         }}
                     >
                         <Box sx={{ width: "100%" }}>
+                            <img src={Spot} width="100%"></img>
                             <Link to="/tenant">
                                 <Button
                                     startIcon={<House />}
