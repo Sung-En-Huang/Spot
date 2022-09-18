@@ -18,8 +18,6 @@ import {
     AcUnitOutlined,
     KitchenOutlined,
     LocalParkingOutlined,
-    LocationSearching,
-    CheckBox,
 } from "@mui/icons-material";
 
 import { Link } from "react-router-dom";
@@ -114,7 +112,6 @@ interface ProfileSettings {
     locations: Location[];
     amenities: Amenity[];
     rooms: Room[];
-    walkScore: number;
 }
 
 function EditProfile() {
@@ -153,7 +150,6 @@ function EditProfile() {
                 num: 2,
             },
         ],
-        walkScore: 80,
     });
 
     const [newLocation, setNewLocation] = useState<Location>({
@@ -376,13 +372,6 @@ function EditProfile() {
                                     />
                                 );
                             })}
-                            {/* <Box
-                                sx={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    gap: "20px",
-                                }}
-                            > */}
                             <Grid container spacing={2}>
                                 <Grid item xs={6}>
                                     <TextField
@@ -441,9 +430,8 @@ function EditProfile() {
                                     </Box>
                                 </Grid>
                             </Grid>
-                            {/* </Box> */}
                         </Grid>
-                        <Grid item xs={5}>
+                        <Grid item xs={6}>
                             <Heading text="Amenities" />
                             <Grid
                                 container
@@ -474,7 +462,7 @@ function EditProfile() {
                                 ))}
                             </Grid>
                         </Grid>
-                        <Grid item xs={4}>
+                        <Grid item xs={6}>
                             <Heading text="Room Requirements" />
                             <Box
                                 sx={{
@@ -517,12 +505,6 @@ function EditProfile() {
                                     </Box>
                                 ))}
                             </Box>
-                        </Grid>
-                        <Grid item xs={3}>
-                            <Heading text="Walk Score" />
-                            <Typography variant="h2">
-                                {settings.walkScore}
-                            </Typography>
                         </Grid>
                     </Grid>
                 </CardContent>

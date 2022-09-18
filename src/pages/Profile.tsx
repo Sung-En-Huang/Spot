@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
     Grid,
-    Paper,
     Box,
     Button,
     Typography,
@@ -13,15 +12,11 @@ import {
     Tabs,
     Tab,
     Slider,
-    Divider,
     Chip,
 } from "@mui/material";
 import {
     Logout,
-    House,
     Edit,
-    Chat,
-    Bed,
     Bathroom,
     BedroomParent,
     WifiOutlined,
@@ -35,9 +30,8 @@ import TabPanel from "../components/TabPanel";
 import Amenities from "../components/Amenities";
 import Heading from "../components/Heading";
 import house from "../assets/house.jpeg";
-import Amplify, { Auth } from 'aws-amplify';
-import awsconfig from '../aws-exports';
-
+import Amplify, { Auth } from "aws-amplify";
+import awsconfig from "../aws-exports";
 
 Amplify.configure(awsconfig);
 
@@ -68,7 +62,6 @@ interface ProfileSettings {
     }[];
     amenities: Amenity[];
     rooms: Room[];
-    walkScore: number;
 }
 
 function a11yProps(index: number) {
@@ -123,13 +116,13 @@ function Profile() {
     const navigate = useNavigate();
     const handleLogout = async () => {
         try {
-            await Auth.signOut()
+            await Auth.signOut();
             //setLoggedIn(false)
-            console.log("logged out")
+            console.log("logged out");
             localStorage.setItem("isLoggedIn", "false");
             navigate("/login");
-        } catch (error) { 
-            console.log('error signing out', error)
+        } catch (error) {
+            console.log("error signing out", error);
         }
     };
     const [tabValue, setTabValue] = useState(0);
@@ -168,7 +161,6 @@ function Profile() {
                 num: 2,
             },
         ],
-        walkScore: 80,
     });
     return (
         <SideBar>
@@ -367,7 +359,7 @@ function Profile() {
                                     );
                                 })}
                             </Grid>
-                            <Grid item xs={5}>
+                            <Grid item xs={6}>
                                 <Heading text="Amenities" />
                                 <Grid
                                     container
@@ -385,7 +377,7 @@ function Profile() {
                                     ))}
                                 </Grid>
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={6}>
                                 <Heading text="Room Requirements" />
                                 <Box
                                     sx={{
@@ -400,25 +392,7 @@ function Profile() {
                                             label={`${room.num} ${room.name}s`}
                                         />
                                     ))}
-                                    {/* <Chip
-                                        icon={<BedroomParent />}
-                                        label={`${settings.rooms.bedrooms} Bedrooms`}
-                                    />
-                                    <Chip
-                                        icon={<Bathroom />}
-                                        label={`${settings.rooms.bathrooms} Bathrooms`}
-                                    />
-                                    <Chip
-                                        icon={<Bed />}
-                                        label={`${settings.rooms.beds} Beds`}
-                                    /> */}
                                 </Box>
-                            </Grid>
-                            <Grid item xs={3}>
-                                <Heading text="Walk Score" />
-                                <Typography variant="h2">
-                                    {settings.walkScore}
-                                </Typography>
                             </Grid>
                         </Grid>
                     </TabPanel>
