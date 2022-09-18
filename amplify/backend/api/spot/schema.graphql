@@ -2,6 +2,7 @@
 # all models in this schema. Learn more about authorization rules here: https://docs.amplify.aws/cli/graphql/authorization-rules
 input AMPLIFY { globalAuthRule: AuthRule = { allow: public } } # FOR TESTING ONLY!
 
+# "person", includes both Landlord and Tenant attributes
 type Owner @model {
   id: ID!
   name: String!
