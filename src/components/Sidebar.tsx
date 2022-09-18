@@ -1,10 +1,9 @@
 import { Grid, Paper, Box, Button } from "@mui/material";
-import Settings from "@mui/icons-material/Settings";
-import { Logout, House, Chat } from "@mui/icons-material";
+import { Logout, House, Chat, Person } from "@mui/icons-material";
+import { Link, useNavigate } from "react-router-dom";
 import Amplify, { Auth } from "aws-amplify";
-import { useNavigate } from "react-router-dom";
 import awsconfig from "../aws-exports";
-import { ProfileSettings } from "../interfaces/ProfileSettings.interface";
+import { UserPreferences } from "../interfaces/ProfileSettings.interface";
 
 Amplify.configure(awsconfig);
 
@@ -40,18 +39,22 @@ function SideBar({ children }: SideBarProps) {
                         }}
                     >
                         <Box sx={{ width: "100%" }}>
-                            <Button
-                                startIcon={<House />}
-                                sx={{ width: "100%", height: "50px" }}
-                            >
-                                Tenant
-                            </Button>
-                            <Button
-                                startIcon={<House />}
-                                sx={{ width: "100%", height: "50px" }}
-                            >
-                                Landlord
-                            </Button>
+                            <Link to="/tenant">
+                                <Button
+                                    startIcon={<House />}
+                                    sx={{ width: "100%", height: "50px" }}
+                                >
+                                    Tenant
+                                </Button>
+                            </Link>
+                            <Link to="/landlord">
+                                <Button
+                                    startIcon={<House />}
+                                    sx={{ width: "100%", height: "50px" }}
+                                >
+                                    Landlord
+                                </Button>
+                            </Link>
                             <Button
                                 startIcon={<Chat />}
                                 sx={{ width: "100%", height: "50px" }}
@@ -64,12 +67,14 @@ function SideBar({ children }: SideBarProps) {
                                 width: "100%",
                             }}
                         >
-                            <Button
-                                startIcon={<Settings />}
-                                sx={{ width: "100%", height: "50px" }}
-                            >
-                                Settings
-                            </Button>
+                            <Link to="/">
+                                <Button
+                                    startIcon={<Person />}
+                                    sx={{ width: "100%", height: "50px" }}
+                                >
+                                    Profile
+                                </Button>
+                            </Link>
                             <Button
                                 onClick={handleLogout}
                                 startIcon={<Logout />}
@@ -81,7 +86,11 @@ function SideBar({ children }: SideBarProps) {
                     </Box>
                 </Paper>
             </Grid>
-            <Grid item xs={10} sx={{ padding: "2%" }}>
+            <Grid
+                item
+                xs={10}
+                sx={{ padding: "2%", maxHeight: "100vh", overflowY: "scroll" }}
+            >
                 {children}
             </Grid>
         </Grid>

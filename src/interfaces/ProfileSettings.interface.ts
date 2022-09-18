@@ -15,7 +15,7 @@ export interface Room {
     num: number;
 }
 
-export interface ProfileSettings {
+export interface UserPreferences {
     price: {
         lower: number;
         higher: number;
@@ -27,4 +27,13 @@ export interface ProfileSettings {
     locations: Location[];
     amenities: Amenity[];
     rooms: Room[];
+}
+
+export interface TenantProfileProps {
+    firstName: string;
+    lastName: string;
+    avatar: string;
+    banner: string;
+    bio: string;
+    preferences: UserPreferences;
 }
