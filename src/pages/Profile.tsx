@@ -223,19 +223,20 @@ function Profile() {
                             columns={{ xs: 4, sm: 8, md: 12 }}
                         >
                             <Grid item xs={2} sm={4} md={4}>
-                                <Listing />
+                                <Listing
+                                    name="159 Wellesley"
+                                    location="Toronto, ON"
+                                    image="https://shared-s3.property.ca/public/images/listings/optimized/c5341710/mls/c5341710_1.jpg?v=2"
+                                    owned={true}
+                                />
                             </Grid>
                             <Grid item xs={2} sm={4} md={4}>
-                                <Listing />
-                            </Grid>
-                            <Grid item xs={2} sm={4} md={4}>
-                                <Listing />
-                            </Grid>
-                            <Grid item xs={2} sm={4} md={4}>
-                                <Listing />
-                            </Grid>
-                            <Grid item xs={2} sm={4} md={4}>
-                                <Listing />
+                                <Listing
+                                    name="501 Yonge"
+                                    location="Toronto, ON"
+                                    image="https://cdn.skyrisecities.com/sites/default/files/images/projects/799/799-76767.jpg"
+                                    owned={true}
+                                />
                             </Grid>
                         </Grid>
                     </TabPanel>

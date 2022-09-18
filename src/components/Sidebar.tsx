@@ -1,5 +1,5 @@
 import { Grid, Paper, Box, Button } from "@mui/material";
-import { Logout, House, Chat, Settings } from "@mui/icons-material";
+import { Logout, House, Chat, Person } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 
 interface SideBarProps {
@@ -34,7 +34,7 @@ function SideBar({ children }: SideBarProps) {
                                     startIcon={<House />}
                                     sx={{ width: "100%", height: "50px" }}
                                 >
-                                    House
+                                    Landlord
                                 </Button>
                             </Link>
                             <Button
@@ -51,10 +51,10 @@ function SideBar({ children }: SideBarProps) {
                         >
                             <Link to="/">
                                 <Button
-                                    startIcon={<Settings />}
+                                    startIcon={<Person />}
                                     sx={{ width: "100%", height: "50px" }}
                                 >
-                                    Settings
+                                    Profile
                                 </Button>
                             </Link>
                             <Button
