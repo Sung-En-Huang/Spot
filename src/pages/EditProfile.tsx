@@ -421,7 +421,6 @@ function EditProfile() {
                                             <Amenities
                                                 icon={amenity.icon}
                                                 text={amenity.text}
-                                                required={amenity.selected}
                                             />
                                             <Checkbox
                                                 checked={amenity.selected}

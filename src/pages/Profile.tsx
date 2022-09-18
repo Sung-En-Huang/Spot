@@ -342,7 +342,6 @@ function Profile() {
                                             <Amenities
                                                 icon={amenity.icon}
                                                 text={amenity.text}
-                                                required={amenity.selected}
                                             />
                                         </Grid>
                                     ))}
