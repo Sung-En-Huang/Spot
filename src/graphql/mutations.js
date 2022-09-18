@@ -10,6 +10,18 @@ export const createOwner = /* GraphQL */ `
       id
       name
       email
+      priceLwrBound
+      priceHgrBound
+      durationLwrBound
+      durationHgrBound
+      bedrooms
+      bathrooms
+      wifi
+      ac
+      kitchen
+      parking
+      locationAddress
+      locationDistance
       createdAt
       updatedAt
     }
@@ -24,6 +36,18 @@ export const updateOwner = /* GraphQL */ `
       id
       name
       email
+      priceLwrBound
+      priceHgrBound
+      durationLwrBound
+      durationHgrBound
+      bedrooms
+      bathrooms
+      wifi
+      ac
+      kitchen
+      parking
+      locationAddress
+      locationDistance
       createdAt
       updatedAt
     }
@@ -38,6 +62,18 @@ export const deleteOwner = /* GraphQL */ `
       id
       name
       email
+      priceLwrBound
+      priceHgrBound
+      durationLwrBound
+      durationHgrBound
+      bedrooms
+      bathrooms
+      wifi
+      ac
+      kitchen
+      parking
+      locationAddress
+      locationDistance
       createdAt
       updatedAt
     }

@@ -40,7 +40,7 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify68e811dc0edd4-staging-174749-deployment/amplify-cfn-templates/auth/spot78ff7be0-cloudformation-template.json",
         "logicalId": "authspot78ff7be0"
       },
-      "lastPushTimeStamp": "2022-09-18T01:18:28.971Z",
+      "lastPushTimeStamp": "2022-09-18T04:16:47.476Z",
       "output": {
         "UserPoolId": "us-east-2_5zNu4rP1U",
         "AppClientIDWeb": "2isjarlfs706uqadp3ttotm4ru",
@@ -78,8 +78,8 @@
         "s3TemplateURL": "https://s3.amazonaws.com/amplify-amplify68e811dc0edd4-staging-174749-deployment/amplify-cfn-templates/api/cloudformation-template.json",
         "logicalId": "apispot"
       },
-      "lastPushTimeStamp": "2022-09-18T01:18:33.624Z",
-      "lastPushDirHash": "1f02/roiUdP8UKzNx6/6hCrO8Uo="
+      "lastPushTimeStamp": "2022-09-18T04:16:51.950Z",
+      "lastPushDirHash": "HlyIbcPWRto3qbWqIFtkIfbNApk="
     }
   }
 }

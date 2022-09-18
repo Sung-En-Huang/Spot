@@ -6,6 +6,18 @@ type Owner @model {
   id: ID!
   name: String!
   email: String!
+  priceLwrBound: Int!
+  priceHgrBound: Int!
+  durationLwrBound: Int!
+  durationHgrBound: Int!
+  bedrooms: Int!
+  bathrooms: Int!
+  wifi: Boolean!
+  ac: Boolean!
+  kitchen: Boolean!
+  parking: Boolean!
+  locationAddress: String!
+  locationDistance: Int!
 },
 
 type House @model {
@@ -15,10 +27,10 @@ type House @model {
   price: Int!
   durationStart: Int!
   durationEnd: Int!
-  wifi: Boolean
-  kitchen: Boolean
-  ac: Boolean
-  parking: Boolean
+  wifi: Boolean!
+  kitchen: Boolean!
+  ac: Boolean!
+  parking: Boolean!
   bedrooms: Int!
   bathrooms: Int!
 }

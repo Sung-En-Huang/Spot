@@ -112,7 +112,7 @@
           ]
         },
         "Description": "demo",
-        "Expires": 1664068464
+        "Expires": 1664079220
       }
     },
     "GraphQLAPINONEDS95A13CF0": {
@@ -402,6 +402,5 @@
         }
       }
     }
-  },
-  "Description": "{\"createdOn\":\"Windows\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.0.0\",\"stackType\":\"api-AppSync\",\"metadata\":{}}"
+  }
 }

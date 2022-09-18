@@ -3,6 +3,18 @@ type Owner {
   id: ID!
   name: String!
   email: String!
+  priceLwrBound: Int!
+  priceHgrBound: Int!
+  durationLwrBound: Int!
+  durationHgrBound: Int!
+  bedrooms: Int!
+  bathrooms: Int!
+  wifi: Boolean!
+  ac: Boolean!
+  kitchen: Boolean!
+  parking: Boolean!
+  locationAddress: String!
+  locationDistance: Int!
   createdAt: AWSDateTime!
   updatedAt: AWSDateTime!
 }
@@ -14,10 +26,10 @@ type House {
   price: Int!
   durationStart: Int!
   durationEnd: Int!
-  wifi: Boolean
-  kitchen: Boolean
-  ac: Boolean
-  parking: Boolean
+  wifi: Boolean!
+  kitchen: Boolean!
+  ac: Boolean!
+  parking: Boolean!
   bedrooms: Int!
   bathrooms: Int!
   createdAt: AWSDateTime!
@@ -183,6 +195,18 @@ input ModelOwnerFilterInput {
   id: ModelIDInput
   name: ModelStringInput
   email: ModelStringInput
+  priceLwrBound: ModelIntInput
+  priceHgrBound: ModelIntInput
+  durationLwrBound: ModelIntInput
+  durationHgrBound: ModelIntInput
+  bedrooms: ModelIntInput
+  bathrooms: ModelIntInput
+  wifi: ModelBooleanInput
+  ac: ModelBooleanInput
+  kitchen: ModelBooleanInput
+  parking: ModelBooleanInput
+  locationAddress: ModelStringInput
+  locationDistance: ModelIntInput
   and: [ModelOwnerFilterInput]
   or: [ModelOwnerFilterInput]
   not: ModelOwnerFilterInput
@@ -198,6 +222,18 @@ type Query {
 input ModelOwnerConditionInput {
   name: ModelStringInput
   email: ModelStringInput
+  priceLwrBound: ModelIntInput
+  priceHgrBound: ModelIntInput
+  durationLwrBound: ModelIntInput
+  durationHgrBound: ModelIntInput
+  bedrooms: ModelIntInput
+  bathrooms: ModelIntInput
+  wifi: ModelBooleanInput
+  ac: ModelBooleanInput
+  kitchen: ModelBooleanInput
+  parking: ModelBooleanInput
+  locationAddress: ModelStringInput
+  locationDistance: ModelIntInput
   and: [ModelOwnerConditionInput]
   or: [ModelOwnerConditionInput]
   not: ModelOwnerConditionInput
@@ -207,12 +243,36 @@ input CreateOwnerInput {
   id: ID
   name: String!
   email: String!
+  priceLwrBound: Int!
+  priceHgrBound: Int!
+  durationLwrBound: Int!
+  durationHgrBound: Int!
+  bedrooms: Int!
+  bathrooms: Int!
+  wifi: Boolean!
+  ac: Boolean!
+  kitchen: Boolean!
+  parking: Boolean!
+  locationAddress: String!
+  locationDistance: Int!
 }
 
 input UpdateOwnerInput {
   id: ID!
   name: String
   email: String
+  priceLwrBound: Int
+  priceHgrBound: Int
+  durationLwrBound: Int
+  durationHgrBound: Int
+  bedrooms: Int
+  bathrooms: Int
+  wifi: Boolean
+  ac: Boolean
+  kitchen: Boolean
+  parking: Boolean
+  locationAddress: String
+  locationDistance: Int
 }
 
 input DeleteOwnerInput {
@@ -284,10 +344,10 @@ input CreateHouseInput {
   price: Int!
   durationStart: Int!
   durationEnd: Int!
-  wifi: Boolean
-  kitchen: Boolean
-  ac: Boolean
-  parking: Boolean
+  wifi: Boolean!
+  kitchen: Boolean!
+  ac: Boolean!
+  parking: Boolean!
   bedrooms: Int!
   bathrooms: Int!
 }

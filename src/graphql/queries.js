@@ -7,6 +7,18 @@ export const getOwner = /* GraphQL */ `
       id
       name
       email
+      priceLwrBound
+      priceHgrBound
+      durationLwrBound
+      durationHgrBound
+      bedrooms
+      bathrooms
+      wifi
+      ac
+      kitchen
+      parking
+      locationAddress
+      locationDistance
       createdAt
       updatedAt
     }
@@ -23,6 +35,18 @@ export const listOwners = /* GraphQL */ `
         id
         name
         email
+        priceLwrBound
+        priceHgrBound
+        durationLwrBound
+        durationHgrBound
+        bedrooms
+        bathrooms
+        wifi
+        ac
+        kitchen
+        parking
+        locationAddress
+        locationDistance
         createdAt
         updatedAt
       }
