@@ -1,8 +1,10 @@
-import { Box } from "@mui/material";
+import { Box, Grid } from "@mui/material";
 import SideBar from "../components/Sidebar";
 
 function EditProfile() {
-    return <SideBar>edit</SideBar>;
+    return <Grid>
+        <SideBar>edit</SideBar>
+    </Grid>
 }
 
 export default EditProfile;

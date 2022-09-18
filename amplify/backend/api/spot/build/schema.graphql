@@ -1,0 +1,313 @@
+
+type Owner {
+  id: ID!
+  name: String!
+  email: String!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+type House {
+  id: ID!
+  address: String!
+  ownerId: String!
+  price: Int!
+  durationStart: Int!
+  durationEnd: Int!
+  wifi: Boolean
+  kitchen: Boolean
+  ac: Boolean
+  parking: Boolean
+  bedrooms: Int!
+  bathrooms: Int!
+  createdAt: AWSDateTime!
+  updatedAt: AWSDateTime!
+}
+
+input ModelStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelBooleanInput {
+  ne: Boolean
+  eq: Boolean
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+}
+
+input ModelIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  attributeExists: Boolean
+  attributeType: ModelAttributeTypes
+  size: ModelSizeInput
+}
+
+input ModelSubscriptionStringInput {
+  ne: String
+  eq: String
+  le: String
+  lt: String
+  ge: String
+  gt: String
+  contains: String
+  notContains: String
+  between: [String]
+  beginsWith: String
+  in: [String]
+  notIn: [String]
+}
+
+input ModelSubscriptionIntInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+  in: [Int]
+  notIn: [Int]
+}
+
+input ModelSubscriptionFloatInput {
+  ne: Float
+  eq: Float
+  le: Float
+  lt: Float
+  ge: Float
+  gt: Float
+  between: [Float]
+  in: [Float]
+  notIn: [Float]
+}
+
+input ModelSubscriptionBooleanInput {
+  ne: Boolean
+  eq: Boolean
+}
+
+input ModelSubscriptionIDInput {
+  ne: ID
+  eq: ID
+  le: ID
+  lt: ID
+  ge: ID
+  gt: ID
+  contains: ID
+  notContains: ID
+  between: [ID]
+  beginsWith: ID
+  in: [ID]
+  notIn: [ID]
+}
+
+enum ModelAttributeTypes {
+  binary
+  binarySet
+  bool
+  list
+  map
+  number
+  numberSet
+  string
+  stringSet
+  _null
+}
+
+input ModelSizeInput {
+  ne: Int
+  eq: Int
+  le: Int
+  lt: Int
+  ge: Int
+  gt: Int
+  between: [Int]
+}
+
+enum ModelSortDirection {
+  ASC
+  DESC
+}
+
+type ModelOwnerConnection {
+  items: [Owner]!
+  nextToken: String
+}
+
+input ModelOwnerFilterInput {
+  id: ModelIDInput
+  name: ModelStringInput
+  email: ModelStringInput
+  and: [ModelOwnerFilterInput]
+  or: [ModelOwnerFilterInput]
+  not: ModelOwnerFilterInput
+}
+
+type Query {
+  getOwner(id: ID!): Owner
+  listOwners(filter: ModelOwnerFilterInput, limit: Int, nextToken: String): ModelOwnerConnection
+  getHouse(id: ID!): House
+  listHouses(filter: ModelHouseFilterInput, limit: Int, nextToken: String): ModelHouseConnection
+}
+
+input ModelOwnerConditionInput {
+  name: ModelStringInput
+  email: ModelStringInput
+  and: [ModelOwnerConditionInput]
+  or: [ModelOwnerConditionInput]
+  not: ModelOwnerConditionInput
+}
+
+input CreateOwnerInput {
+  id: ID
+  name: String!
+  email: String!
+}
+
+input UpdateOwnerInput {
+  id: ID!
+  name: String
+  email: String
+}
+
+input DeleteOwnerInput {
+  id: ID!
+}
+
+type Mutation {
+  createOwner(input: CreateOwnerInput!, condition: ModelOwnerConditionInput): Owner
+  updateOwner(input: UpdateOwnerInput!, condition: ModelOwnerConditionInput): Owner
+  deleteOwner(input: DeleteOwnerInput!, condition: ModelOwnerConditionInput): Owner
+  createHouse(input: CreateHouseInput!, condition: ModelHouseConditionInput): House
+  updateHouse(input: UpdateHouseInput!, condition: ModelHouseConditionInput): House
+  deleteHouse(input: DeleteHouseInput!, condition: ModelHouseConditionInput): House
+}
+
+type Subscription {
+  onCreateOwner: Owner @aws_subscribe(mutations: ["createOwner"])
+  onUpdateOwner: Owner @aws_subscribe(mutations: ["updateOwner"])
+  onDeleteOwner: Owner @aws_subscribe(mutations: ["deleteOwner"])
+  onCreateHouse: House @aws_subscribe(mutations: ["createHouse"])
+  onUpdateHouse: House @aws_subscribe(mutations: ["updateHouse"])
+  onDeleteHouse: House @aws_subscribe(mutations: ["deleteHouse"])
+}
+
+type ModelHouseConnection {
+  items: [House]!
+  nextToken: String
+}
+
+input ModelHouseFilterInput {
+  id: ModelIDInput
+  address: ModelStringInput
+  ownerId: ModelStringInput
+  price: ModelIntInput
+  durationStart: ModelIntInput
+  durationEnd: ModelIntInput
+  wifi: ModelBooleanInput
+  kitchen: ModelBooleanInput
+  ac: ModelBooleanInput
+  parking: ModelBooleanInput
+  bedrooms: ModelIntInput
+  bathrooms: ModelIntInput
+  and: [ModelHouseFilterInput]
+  or: [ModelHouseFilterInput]
+  not: ModelHouseFilterInput
+}
+
+input ModelHouseConditionInput {
+  address: ModelStringInput
+  ownerId: ModelStringInput
+  price: ModelIntInput
+  durationStart: ModelIntInput
+  durationEnd: ModelIntInput
+  wifi: ModelBooleanInput
+  kitchen: ModelBooleanInput
+  ac: ModelBooleanInput
+  parking: ModelBooleanInput
+  bedrooms: ModelIntInput
+  bathrooms: ModelIntInput
+  and: [ModelHouseConditionInput]
+  or: [ModelHouseConditionInput]
+  not: ModelHouseConditionInput
+}
+
+input CreateHouseInput {
+  id: ID
+  address: String!
+  ownerId: String!
+  price: Int!
+  durationStart: Int!
+  durationEnd: Int!
+  wifi: Boolean
+  kitchen: Boolean
+  ac: Boolean
+  parking: Boolean
+  bedrooms: Int!
+  bathrooms: Int!
+}
+
+input UpdateHouseInput {
+  id: ID!
+  address: String
+  ownerId: String
+  price: Int
+  durationStart: Int
+  durationEnd: Int
+  wifi: Boolean
+  kitchen: Boolean
+  ac: Boolean
+  parking: Boolean
+  bedrooms: Int
+  bathrooms: Int
+}
+
+input DeleteHouseInput {
+  id: ID!
+}
+
