@@ -8,7 +8,7 @@ import { UserPreferences } from "../interfaces/ProfileSettings.interface";
 Amplify.configure(awsconfig);
 
 interface SideBarProps {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 function SideBar({ children }: SideBarProps) {
