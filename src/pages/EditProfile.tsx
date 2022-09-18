@@ -20,7 +20,7 @@ import {
     LocalParkingOutlined,
 } from "@mui/icons-material";
 import {
-    ProfileSettings,
+    UserPreferences,
     Location,
 } from "../interfaces/ProfileSettings.interface";
 import { Link } from "react-router-dom";
@@ -87,7 +87,7 @@ function LocationListing({
 }
 
 function EditProfile() {
-    const [settings, setSettings] = useState<ProfileSettings>({
+    const [settings, setSettings] = useState<UserPreferences>({
         price: { lower: 20, higher: 70 },
         duration: { lower: 20, higher: 70 },
         locations: [
@@ -224,20 +224,15 @@ function EditProfile() {
                                 alignItems: "flex-end",
                             }}
                         >
-                            <Avatar sx={{ width: 150, height: 150 }}>JS</Avatar>
+                            <Avatar
+                                sx={{ width: 150, height: 150 }}
+                                src="https://media-exp1.licdn.com/dms/image/D5603AQHzmHu4Yv4YPw/profile-displayphoto-shrink_400_400/0/1659640944888?e=1669248000&v=beta&t=l5dTiA_2IczNlLMeAYPyzR-Gp3zwCcandJI8XghxB7I"
+                            >
+                                RL
+                            </Avatar>
                             <Typography variant="h2" fontWeight={400}>
-                                Joe Smith
+                                Ryan Li
                             </Typography>
-                        </Box>
-                        <Box sx={{ display: "flex", gap: "10px" }}>
-                            <Link to="/">
-                                <Button
-                                    variant="contained"
-                                    sx={{ height: "40px" }}
-                                >
-                                    Save
-                                </Button>
-                            </Link>
                         </Box>
                     </Box>
                     <Box
@@ -266,24 +261,25 @@ function EditProfile() {
                                         {
                                             value: settings.price.lower,
                                             label: `$${
-                                                settings.price.lower * 100 // value is on scale of 1-100, price is in thousands
+                                                (settings.price.lower * 3000) /
+                                                100 // value is on scale of 1-100, price is in thousands
                                             }`,
                                         },
                                         {
                                             value: settings.price.higher,
                                             label: `$${
-                                                settings.price.higher * 100
+                                                (settings.price.higher * 3000) /
+                                                100
                                             }`,
                                         },
                                     ]}
-                                    // step={10}
                                     value={[
                                         settings.price.lower,
                                         settings.price.higher,
                                     ]}
                                     sx={{ width: "100%" }}
                                 />
-                                <Typography>$10,000+</Typography>
+                                <Typography>$3,000+</Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={6}>
@@ -295,7 +291,7 @@ function EditProfile() {
                                     gap: "15px",
                                 }}
                             >
-                                <Typography>7 days</Typography>
+                                <Typography>0 months</Typography>
                                 <Slider
                                     name="duration"
                                     size="small"
@@ -304,18 +300,17 @@ function EditProfile() {
                                         {
                                             value: settings.duration.lower,
                                             label: `${Math.floor(
-                                                (settings.duration.lower *
-                                                    365) /
-                                                    100 // rescale to 365 days
-                                            )} days`,
+                                                (settings.duration.lower * 12) /
+                                                    100 // rescale to 12 months
+                                            )} months`,
                                         },
                                         {
                                             value: settings.duration.higher,
                                             label: `${Math.floor(
                                                 (settings.duration.higher *
-                                                    365) /
+                                                    12) /
                                                     100
-                                            )} days`,
+                                            )} months`,
                                         },
                                     ]}
                                     value={[
@@ -324,7 +319,7 @@ function EditProfile() {
                                     ]}
                                     sx={{ width: "70%" }}
                                 />
-                                <Typography>365+ days</Typography>
+                                <Typography>12 months</Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={12}>
@@ -478,6 +473,13 @@ function EditProfile() {
                             </Box>
                         </Grid>
                     </Grid>
+                    <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+                        <Link to="/">
+                            <Button variant="contained" sx={{ height: "40px" }}>
+                                Save
+                            </Button>
+                        </Link>
+                    </Box>
                 </CardContent>
             </Card>
         </SideBar>

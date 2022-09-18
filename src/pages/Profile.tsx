@@ -32,7 +32,7 @@ import Heading from "../components/Heading";
 import house from "../assets/house.jpeg";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "../aws-exports";
-import { ProfileSettings } from "../interfaces/ProfileSettings.interface";
+import { UserPreferences } from "../interfaces/ProfileSettings.interface";
 
 Amplify.configure(awsconfig);
 
@@ -97,9 +97,9 @@ function Profile() {
         }
     };
     const [tabValue, setTabValue] = useState(0);
-    const [settings, setSettings] = useState<ProfileSettings>({
-        price: { lower: 2000, higher: 7000 },
-        duration: { lower: 72, higher: 251 },
+    const [settings, setSettings] = useState<UserPreferences>({
+        price: { lower: 600, higher: 1500 },
+        duration: { lower: 4, higher: 8 },
         locations: [
             {
                 address: "110 University Ave W, Waterloo, ON N2L 3E2",
@@ -156,9 +156,14 @@ function Profile() {
                                 marginTop: "-80px",
                             }}
                         >
-                            <Avatar sx={{ width: 150, height: 150 }}>JS</Avatar>
+                            <Avatar
+                                sx={{ width: 150, height: 150 }}
+                                src="https://media-exp1.licdn.com/dms/image/D5603AQHzmHu4Yv4YPw/profile-displayphoto-shrink_400_400/0/1659640944888?e=1669248000&v=beta&t=l5dTiA_2IczNlLMeAYPyzR-Gp3zwCcandJI8XghxB7I"
+                            >
+                                RL
+                            </Avatar>
                             <Typography variant="h2" fontWeight={400}>
-                                Joe Smith
+                                Ryan Li
                             </Typography>
                         </Box>
                         <Box sx={{ display: "flex", gap: "10px" }}>
@@ -204,15 +209,12 @@ function Profile() {
                         </Tabs>
                     </Box>
                     <TabPanel value={tabValue} index={0}>
-                        "Lorem ipsum dolor sit amet, consectetur adipiscing
-                        elit, sed do eiusmod tempor incididunt ut labore et
-                        dolore magna aliqua. Ut enim ad minim veniam, quis
-                        nostrud exercitation ullamco laboris nisi ut aliquip ex
-                        ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu
-                        fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit
-                        anim id est laborum."
+                        I’m leaving my current apartment because I want to live
+                        within walking distance of my work. My current apartment
+                        is a 30-minute drive away, and my lease is expiring at
+                        the end of the month. My next apartment will be a
+                        long-term commitment, as I don’t plan on leaving the
+                        area or switching jobs.
                     </TabPanel>
                     <TabPanel value={tabValue} index={1}>
                         <Grid
@@ -256,27 +258,26 @@ function Profile() {
                                                 value:
                                                     (settings.price.lower *
                                                         100) /
-                                                    10000,
+                                                    3000,
                                                 label: `$${settings.price.lower}`,
                                             },
                                             {
                                                 value:
                                                     (settings.price.higher *
                                                         100) /
-                                                    10000,
+                                                    3000,
                                                 label: `$${settings.price.higher}`,
                                             },
                                         ]}
                                         step={10}
                                         value={[
-                                            (settings.price.lower * 100) /
-                                                10000,
+                                            (settings.price.lower * 100) / 3000,
                                             (settings.price.higher * 100) /
-                                                10000,
+                                                3000,
                                         ]}
                                         sx={{ width: "100%" }}
                                     />
-                                    <Typography>$10,000+</Typography>
+                                    <Typography>$3,000+</Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={6}>
@@ -288,7 +289,7 @@ function Profile() {
                                         gap: "15px",
                                     }}
                                 >
-                                    <Typography>7 days</Typography>
+                                    <Typography>0 months</Typography>
                                     <Slider
                                         size="small"
                                         marks={[
@@ -296,27 +297,27 @@ function Profile() {
                                                 value:
                                                     (settings.duration.lower *
                                                         100) /
-                                                    365,
-                                                label: `${settings.duration.lower} days`,
+                                                    12,
+                                                label: `${settings.duration.lower} months`,
                                             },
                                             {
                                                 value:
                                                     (settings.duration.higher *
                                                         100) /
-                                                    365,
-                                                label: `${settings.duration.higher} days`,
+                                                    12,
+                                                label: `${settings.duration.higher} months`,
                                             },
                                         ]}
                                         step={10}
                                         value={[
                                             (settings.duration.lower * 100) /
-                                                365,
+                                                12,
                                             (settings.duration.higher * 100) /
-                                                365,
+                                                12,
                                         ]}
                                         sx={{ width: "70%" }}
                                     />
-                                    <Typography>365+ days</Typography>
+                                    <Typography>12 months</Typography>
                                 </Box>
                             </Grid>
                             <Grid item xs={12}>
