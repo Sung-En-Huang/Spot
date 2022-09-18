@@ -7,6 +7,7 @@ import {
     Button,
     Box,
     IconButton,
+    Rating,
 } from "@mui/material";
 import { Check, Close } from "@mui/icons-material";
 import house from "../assets/house.jpeg";
@@ -23,8 +24,18 @@ function Listing({ name, location, image, owned }: ListingProps) {
         <Card>
             <CardMedia component="img" image={image} height="300" />
             <CardContent>
-                <Typography variant="h5">{name}</Typography>
-                <Typography variant="body2">{location}</Typography>
+                <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+                    <Box>
+                        <Typography variant="h5">{name}</Typography>
+                        <Rating value={4} readOnly />
+                    </Box>
+                    <Box sx={{ textAlign: "right" }}>
+                        <Typography variant="h6">$1,200 / month</Typography>
+                        <Typography variant="body2" color="text.secondary">
+                            {location}
+                        </Typography>
+                    </Box>
+                </Box>
             </CardContent>
             <CardActions>
                 <Button>View</Button>
