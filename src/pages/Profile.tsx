@@ -32,37 +32,9 @@ import Heading from "../components/Heading";
 import house from "../assets/house.jpeg";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "../aws-exports";
+import { ProfileSettings } from "../interfaces/ProfileSettings.interface";
 
 Amplify.configure(awsconfig);
-
-interface Amenity {
-    icon: React.ReactNode;
-    text: string;
-    selected: boolean;
-}
-
-interface Room {
-    icon: React.ReactElement;
-    name: string;
-    num: number;
-}
-
-interface ProfileSettings {
-    price: {
-        lower: number;
-        higher: number;
-    };
-    duration: {
-        lower: number;
-        higher: number;
-    };
-    locations: {
-        address: string;
-        radius: number;
-    }[];
-    amenities: Amenity[];
-    rooms: Room[];
-}
 
 function a11yProps(index: number) {
     return {
@@ -117,7 +89,6 @@ function Profile() {
     const handleLogout = async () => {
         try {
             await Auth.signOut();
-            //setLoggedIn(false)
             console.log("logged out");
             localStorage.setItem("isLoggedIn", "false");
             navigate("/login");

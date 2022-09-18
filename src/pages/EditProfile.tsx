@@ -19,7 +19,10 @@ import {
     KitchenOutlined,
     LocalParkingOutlined,
 } from "@mui/icons-material";
-
+import {
+    ProfileSettings,
+    Location,
+} from "../interfaces/ProfileSettings.interface";
 import { Link } from "react-router-dom";
 import SideBar from "../components/Sidebar";
 import Heading from "../components/Heading";
@@ -34,7 +37,7 @@ interface LocationProps {
 }
 
 // represents a location listing in the preference pane
-function Location({
+function LocationListing({
     location,
     radius,
     handleChange,
@@ -81,37 +84,6 @@ function Location({
             </Grid>
         </Grid>
     );
-}
-
-interface Location {
-    address: string;
-    radius: number;
-}
-
-interface Amenity {
-    icon: React.ReactNode;
-    text: string;
-    selected: boolean;
-}
-
-interface Room {
-    icon: React.ReactNode;
-    name: string;
-    num: number;
-}
-
-interface ProfileSettings {
-    price: {
-        lower: number;
-        higher: number;
-    };
-    duration: {
-        lower: number;
-        higher: number;
-    };
-    locations: Location[];
-    amenities: Amenity[];
-    rooms: Room[];
 }
 
 function EditProfile() {
@@ -359,7 +331,7 @@ function EditProfile() {
                             <Heading text="Location" />
                             {settings.locations.map((location, index) => {
                                 return (
-                                    <Location
+                                    <LocationListing
                                         location={location.address}
                                         radius={location.radius}
                                         deleteLocation={(e: Event) =>
