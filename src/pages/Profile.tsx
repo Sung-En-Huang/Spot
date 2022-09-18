@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
     Grid,
-    Paper,
     Box,
     Button,
     Typography,
@@ -13,15 +12,11 @@ import {
     Tabs,
     Tab,
     Slider,
-    Divider,
     Chip,
 } from "@mui/material";
 import {
     Logout,
-    House,
     Edit,
-    Chat,
-    Bed,
     Bathroom,
     BedroomParent,
     WifiOutlined,
@@ -33,58 +28,19 @@ import SideBar from "../components/Sidebar";
 import Listing from "../components/Listing";
 import TabPanel from "../components/TabPanel";
 import Amenities from "../components/Amenities";
+import Heading from "../components/Heading";
 import house from "../assets/house.jpeg";
-import Amplify, { Auth } from 'aws-amplify';
-import awsconfig from '../aws-exports';
-
+import Amplify, { Auth } from "aws-amplify";
+import awsconfig from "../aws-exports";
+import { ProfileSettings } from "../interfaces/ProfileSettings.interface";
 
 Amplify.configure(awsconfig);
-
-interface ProfileSettings {
-    price: {
-        lower: number;
-        higher: number;
-    };
-    duration: {
-        lower: number;
-        higher: number;
-    };
-    locations: {
-        address: string;
-        radius: number;
-    }[];
-    amenities: {
-        wifi: boolean;
-        kitchen: boolean;
-        ac: boolean;
-        parking: boolean;
-    };
-    rooms: {
-        bedrooms: number;
-        bathrooms: number;
-        beds: number;
-    };
-    walkScore: number;
-}
 
 function a11yProps(index: number) {
     return {
         id: `simple-tab-${index}`,
         "aria-controls": `simple-tabpanel-${index}`,
     };
-}
-
-interface HeadingProps {
-    text: string;
-}
-
-function Heading({ text }: HeadingProps) {
-    return (
-        <>
-            <Typography variant="h6">{text}</Typography>
-            <Divider sx={{ marginY: "10px" }} />
-        </>
-    );
 }
 
 interface LocationProps {
@@ -132,13 +88,12 @@ function Profile() {
     const navigate = useNavigate();
     const handleLogout = async () => {
         try {
-            await Auth.signOut()
-            //setLoggedIn(false)
-            console.log("logged out")
+            await Auth.signOut();
+            console.log("logged out");
             localStorage.setItem("isLoggedIn", "false");
             navigate("/login");
-        } catch (error) { 
-            console.log('error signing out', error)
+        } catch (error) {
+            console.log("error signing out", error);
         }
     };
     const [tabValue, setTabValue] = useState(0);
@@ -159,18 +114,24 @@ function Profile() {
                 radius: 4,
             },
         ],
-        amenities: {
-            wifi: true,
-            kitchen: true,
-            ac: true,
-            parking: true,
-        },
-        rooms: {
-            bedrooms: 5,
-            bathrooms: 2,
-            beds: 5,
-        },
-        walkScore: 80,
+        amenities: [
+            { icon: <WifiOutlined />, text: "Wifi", selected: true },
+            { icon: <AcUnitOutlined />, text: "AC", selected: true },
+            { icon: <KitchenOutlined />, text: "Kitchen", selected: true },
+            { icon: <LocalParkingOutlined />, text: "Parking", selected: true },
+        ],
+        rooms: [
+            {
+                icon: <BedroomParent />,
+                name: "Bedroom",
+                num: 5,
+            },
+            {
+                icon: <Bathroom />,
+                name: "Bathroom",
+                num: 2,
+            },
+        ],
     });
     return (
         <SideBar>
@@ -200,16 +161,25 @@ function Profile() {
                                 Joe Smith
                             </Typography>
                         </Box>
-                        <Link to="edit">
+                        <Box sx={{ display: "flex", gap: "10px" }}>
+                            <Link to="edit">
+                                <Button
+                                    variant="contained"
+                                    sx={{ height: "40px" }}
+                                    startIcon={<Edit />}
+                                >
+                                    Edit Profile
+                                </Button>
+                            </Link>
                             <Button
                                 variant="contained"
                                 sx={{ height: "40px" }}
-                                startIcon={<Edit />}
+                                onClick={handleLogout}
+                                startIcon={<Logout />}
                             >
-                                Edit Profile
+                                Logout
                             </Button>
-                        </Link>
-                        <button onClick={handleLogout}>Logout</button>
+                        </Box>
                     </Box>
                     <Box
                         sx={{
@@ -360,44 +330,24 @@ function Profile() {
                                     );
                                 })}
                             </Grid>
-                            <Grid item xs={5}>
+                            <Grid item xs={6}>
                                 <Heading text="Amenities" />
                                 <Grid
                                     container
                                     spacing={2}
                                     sx={{ paddingX: "20px" }}
                                 >
-                                    <Grid item xs={6}>
-                                        <Amenities
-                                            icon={<WifiOutlined />}
-                                            text="Wi-Fi"
-                                            required={true}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Amenities
-                                            icon={<AcUnitOutlined />}
-                                            text="Air Conditioning"
-                                            required={false}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Amenities
-                                            icon={<KitchenOutlined />}
-                                            text="Kitchen"
-                                            required={true}
-                                        />
-                                    </Grid>
-                                    <Grid item xs={6}>
-                                        <Amenities
-                                            icon={<LocalParkingOutlined />}
-                                            text="Parking"
-                                            required={true}
-                                        />
-                                    </Grid>
+                                    {settings.amenities.map((amenity) => (
+                                        <Grid item xs={6}>
+                                            <Amenities
+                                                icon={amenity.icon}
+                                                text={amenity.text}
+                                            />
+                                        </Grid>
+                                    ))}
                                 </Grid>
                             </Grid>
-                            <Grid item xs={4}>
+                            <Grid item xs={6}>
                                 <Heading text="Room Requirements" />
                                 <Box
                                     sx={{
@@ -406,25 +356,13 @@ function Profile() {
                                         gap: "10px",
                                     }}
                                 >
-                                    <Chip
-                                        icon={<BedroomParent />}
-                                        label={`${settings.rooms.bedrooms} Bedrooms`}
-                                    />
-                                    <Chip
-                                        icon={<Bathroom />}
-                                        label={`${settings.rooms.bathrooms} Bathrooms`}
-                                    />
-                                    <Chip
-                                        icon={<Bed />}
-                                        label={`${settings.rooms.beds} Beds`}
-                                    />
+                                    {settings.rooms.map((room) => (
+                                        <Chip
+                                            icon={room.icon}
+                                            label={`${room.num} ${room.name}s`}
+                                        />
+                                    ))}
                                 </Box>
-                            </Grid>
-                            <Grid item xs={3}>
-                                <Heading text="Walk Score" />
-                                <Typography variant="h2">
-                                    {settings.walkScore}
-                                </Typography>
                             </Grid>
                         </Grid>
                     </TabPanel>

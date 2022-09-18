@@ -2,27 +2,23 @@ import { Typography, Button, TextField, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import house from "../assets/house.jpeg";
 import { useNavigate } from "react-router-dom";
-import { Email } from "@mui/icons-material";
 import { Auth } from "aws-amplify";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function Login() {
-
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
     const handleLogin = async () => {
-        try { 
+        try {
             const user = await Auth.signIn(email, password);
-            localStorage.setItem("isLoggedIn", "true")
+            localStorage.setItem("isLoggedIn", "true");
             navigate("/");
         } catch (error) {
-            console.log('there was an error logging in', error)
+            console.log("there was an error logging in", error);
         }
     };
-
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-
 
     return (
         <Grid
@@ -52,33 +48,27 @@ function Login() {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            // name="email"
                             id="email"
                             label="Email"
                             value={email}
                             placeholder="someone@example.com"
                             sx={{ width: "100%" }}
-                            onChange={ e => setEmail(e.target.value)}
-                            // onChange={(e: any) => {handleChange(e)}}
-                            // value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            // name="password"
                             type="password"
                             id="password"
                             label="Password"
                             value={password}
                             sx={{ width: "100%" }}
-                            onChange={ e => setPassword(e.target.value)}
-                            // onChange={(e: any) => {handleChange(e)}}
-                            // value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <Button
-                            id='signInButton'
+                            id="signInButton"
                             onClick={handleLogin}
                             variant="outlined"
                             sx={{ width: "100%", height: "50px" }}
@@ -88,12 +78,11 @@ function Login() {
                     </Grid>
                     <Grid item xs={12}>
                         <Typography variant="body1">
-                            Don't have an account?{" "}
-                            <span>
-                                <Link to="/signup">
-                                    <Button variant="text">Sign Up</Button>
-                                </Link>
-                            </span>
+                            Don't have an account? {/* <span> */}
+                            <Link to="/signup">
+                                <Button variant="text">Sign Up</Button>
+                            </Link>
+                            {/* </span> */}
                         </Typography>
                     </Grid>
                 </Grid>

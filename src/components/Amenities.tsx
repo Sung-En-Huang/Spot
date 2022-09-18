@@ -1,12 +1,11 @@
-import { Box, Checkbox, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 interface PropType {
     icon: React.ReactNode;
-    required: boolean;
     text: string;
 }
 
-function Amenities({ icon, required, text }: PropType) {
+function Amenities({ icon, text }: PropType) {
     return (
         <Box
             sx={{
@@ -17,7 +16,6 @@ function Amenities({ icon, required, text }: PropType) {
         >
             {icon}
             <Typography variant="overline">{text}</Typography>
-            {/* <Checkbox checked={required}></Checkbox> */}
         </Box>
     );
 }
