@@ -1,5 +1,5 @@
 {
-  "Description": "{\"createdOn\":\"Windows\",\"createdBy\":\"Amplify\",\"createdWith\":\"10.0.0\",\"stackType\":\"auth-Cognito\",\"metadata\":{}}",
+  "Description": "Amplify Cognito Stack for AWS Amplify CLI",
   "AWSTemplateFormatVersion": "2010-09-09",
   "Parameters": {
     "env": {
@@ -105,6 +105,30 @@
       "Type": "String"
     },
     "dependsOn": {
+      "Type": "CommaDelimitedList"
+    },
+    "thirdPartyAuth": {
+      "Type": "String"
+    },
+    "userPoolGroups": {
+      "Type": "String"
+    },
+    "adminQueries": {
+      "Type": "String"
+    },
+    "triggers": {
+      "Type": "String"
+    },
+    "hostedUI": {
+      "Type": "String"
+    },
+    "authProviders": {
+      "Type": "CommaDelimitedList"
+    },
+    "parentStack": {
+      "Type": "String"
+    },
+    "permissions": {
       "Type": "CommaDelimitedList"
     }
   },

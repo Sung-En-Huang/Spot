@@ -182,7 +182,7 @@
           "sharedId": "78ff7be0",
           "resourceName": "spot78ff7be0",
           "authSelections": "identityPoolAndUserPool",
-          "useDefault": "default",
+          "useDefault": "manual",
           "userPoolGroupList": "",
           "serviceName": "Cognito",
           "usernameCaseSensitive": false,
@@ -201,6 +201,30 @@
           },
           "breakCircularDependency": true,
           "dependsOn": "",
+          "thirdPartyAuth": false,
+          "userPoolGroups": false,
+          "adminQueries": false,
+          "triggers": "{}",
+          "hostedUI": false,
+          "authProviders": "",
+          "parentStack": {
+            "Ref": "AWS::StackId"
+          },
+          "permissions": "",
+          "env": "staging"
+        }
+      }
+    },
+    "apispot": {
+      "Type": "AWS::CloudFormation::Stack",
+      "Properties": {
+        "TemplateURL": "https://s3.amazonaws.com/amplify-amplify68e811dc0edd4-staging-174749-deployment/amplify-cfn-templates/api/cloudformation-template.json",
+        "Parameters": {
+          "AppSyncApiName": "spot",
+          "DynamoDBBillingMode": "PAY_PER_REQUEST",
+          "DynamoDBEnableServerSideEncryption": false,
+          "S3DeploymentBucket": "amplify-amplify68e811dc0edd4-staging-174749-deployment",
+          "S3DeploymentRootKey": "amplify-appsync-files/9c188debeb91ed955321b308eb951fa7276eabef",
           "env": "staging"
         }
       }

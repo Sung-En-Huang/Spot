@@ -1,12 +1,30 @@
 import { Grid, Paper, Box, Button } from "@mui/material";
 import { Logout, House, Chat, Person } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Amplify, { Auth } from "aws-amplify";
+import awsconfig from "../aws-exports";
+import { UserPreferences } from "../interfaces/ProfileSettings.interface";
+
+Amplify.configure(awsconfig);
 
 interface SideBarProps {
     children: React.ReactNode;
 }
 
 function SideBar({ children }: SideBarProps) {
+    const navigate = useNavigate();
+
+    const handleLogout = async () => {
+        try {
+            await Auth.signOut();
+            console.log("logged out");
+            localStorage.setItem("isLoggedIn", "false");
+            navigate("/login");
+        } catch (error) {
+            console.log("error signing out", error);
+        }
+    };
+
     return (
         <Grid container sx={{ height: "100vh" }}>
             <Grid item xs={2}>
@@ -58,6 +76,7 @@ function SideBar({ children }: SideBarProps) {
                                 </Button>
                             </Link>
                             <Button
+                                onClick={handleLogout}
                                 startIcon={<Logout />}
                                 sx={{ width: "100%", height: "50px" }}
                             >
