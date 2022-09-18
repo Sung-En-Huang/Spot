@@ -9,11 +9,10 @@ function Signup() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const navigate = useNavigate();
-    const handleSignup = async () => {
-        const username = name;
 
+    const handleSignup = async () => {
+        const username = email;
         try {
             const { user } = await Auth.signUp({
                 username,
@@ -29,8 +28,6 @@ function Signup() {
             console.log("error signing up:");
         }
     };
-
-    // const [confirmPassword, setConfirmPassword] = useState("");
     return (
         <Grid
             container

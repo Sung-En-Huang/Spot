@@ -2,25 +2,23 @@ import { Typography, Button, TextField, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 import house from "../assets/house.jpeg";
 import { useNavigate } from "react-router-dom";
-import { Email } from "@mui/icons-material";
 import { Auth } from "aws-amplify";
-import React, { useState } from "react";
+import { useState } from "react";
 
 function Login() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
     const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
-            // const user = await Auth.signIn(email, password);
+            const user = await Auth.signIn(email, password);
             localStorage.setItem("isLoggedIn", "true");
             navigate("/");
         } catch (error) {
             console.log("there was an error logging in", error);
         }
     };
-
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
 
     return (
         <Grid
@@ -50,28 +48,22 @@ function Login() {
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            // name="email"
                             id="email"
                             label="Email"
                             value={email}
                             placeholder="someone@example.com"
                             sx={{ width: "100%" }}
                             onChange={(e) => setEmail(e.target.value)}
-                            // onChange={(e: any) => {handleChange(e)}}
-                            // value={email}
                         />
                     </Grid>
                     <Grid item xs={12}>
                         <TextField
-                            // name="password"
                             type="password"
                             id="password"
                             label="Password"
                             value={password}
                             sx={{ width: "100%" }}
                             onChange={(e) => setPassword(e.target.value)}
-                            // onChange={(e: any) => {handleChange(e)}}
-                            // value={password}
                         />
                     </Grid>
                     <Grid item xs={12}>
