@@ -1,6 +1,6 @@
 import { Typography, Button, TextField, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
-import house from "../assets/house.jpeg";
+import house from "../assets/house.jpg";
 import { useNavigate } from "react-router-dom";
 import { Auth } from "aws-amplify";
 import { useState } from "react";

@@ -29,7 +29,7 @@ import Listing from "../components/Listing";
 import TabPanel from "../components/TabPanel";
 import Amenities from "../components/Amenities";
 import Heading from "../components/Heading";
-import house from "../assets/house.jpeg";
+import house from "../assets/house.jpg";
 import Amplify, { Auth } from "aws-amplify";
 import awsconfig from "../aws-exports";
 import { UserPreferences } from "../interfaces/ProfileSettings.interface";
