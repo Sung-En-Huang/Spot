@@ -1,46 +1,27 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Spot
 
-## Available Scripts
+# What it does ❓
+Spot is a housing market platform where tenants and landlords can match based on preference and compatibility. By incorporating the match system, tenants can breeze through housing applications curated towards their housing preferences while landlords get the luxury of a clear tenant application with no text fluff. The instantaneous matching feature and profile customization seeks to condense and simplify the rental process for tenants and landlords alike.
 
-In the project directory, you can run:
+- Allows tenants and landlords to match based on their preferences
+- Simplifies application process with profile and simple match system
+- Reduces redundancy in application process, only one application is required from both sides
 
-### `npm start`
+# How we built it 🔨
+- Front-end was designed and built with React, TypeScript
+- Amplify for user authentification
+- DynamoDB stored client data
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+# Try it out 🏗
+Set up the repository
+```bash
+  git clone https://github.com/Sung-En-Huang/Spot.git
+  cd /medi-scanner
+```
+    
+## Images/Demo
+Link - https://devpost.com/software/spot-ydljf3
+![Tenant Profile](https://user-images.githubusercontent.com/105095206/218373723-ee872ad6-28f5-44d9-a818-9fc8c1b51955.png)
+![Tenant Preferences](https://user-images.githubusercontent.com/105095206/218373726-a9acb68a-2e98-45f5-8b26-d1890d930c1b.png)
+<img width="896" alt="Swipe system" src="https://user-images.githubusercontent.com/105095206/218373729-f22676a3-3eb0-485f-b014-924c8ebeac49.png">
